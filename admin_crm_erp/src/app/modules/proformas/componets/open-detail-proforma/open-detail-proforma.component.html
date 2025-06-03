@@ -1,0 +1,186 @@
+<!--begin::Modal content CREATE-->
+<div class="modal-content">
+    <!--begin::Modal header-->
+    <div class="modal-header" id="kt_modal_add_user_header">
+        <!--begin::Modal title-->
+        <h2 class="fw-bolder">Proforma #({{ PROFORMA.id }})</h2>
+        
+        <!--end::Modal title-->
+        <!--begin::Close-->
+        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close" (click)="modal.dismiss()">
+            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+            <span class="svg-icon svg-icon-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+                </svg>
+            </span>
+            <!--end::Svg Icon-->
+        </div>
+        <!--end::Close-->
+    </div>
+    <!--end::Modal header-->
+    <!--begin::Modal body-->
+    <div class="modal-body scroll-y mx-5 my-7">
+        <!--begin::Form-->
+        <form id="kt_modal_add_user_form" class="form" action="#">
+            
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <!--begin::Table-->
+                        <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                            <!--begin::Table head-->
+                            <thead>
+                                <tr class="fw-bold text-muted">
+                                    <th class="min-w-150px">Producto</th>
+                                    <th class="min-w-120px">Descripción</th>
+                                    <th class="min-w-140px">Unidad</th>
+                                    <th class="min-w-120px">Cantidad</th>
+                                </tr>
+                            </thead>
+                            <!--end::Table head-->
+                
+                            <!--begin::Table body-->
+                            <tbody>
+                                <!-- Sección de Insumos Generales -->
+                                <tr class="bg-light-success">
+                                    <td colspan="4" class="fw-bold">
+                                        Insumos Generales
+                                        <span class="badge badge-light-success ms-2">Total</span>
+                                    </td>
+                                </tr>
+                                <ng-container *ngIf="getInsumosGenerales().length > 0; else noInsumos">
+                                    <tr *ngFor="let insumo of getInsumosGenerales()">
+                                        <td>
+                                            <div class="d-flex justify-content-start flex-column">
+                                                <span class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">{{ insumo.product.title }}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted fw-semibold text-muted d-block fs-7">{{ insumo.product.description || 'Sin descripción' }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted fw-semibold text-muted d-block fs-7">{{ insumo.unit.name }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted fw-semibold text-muted d-block fs-7">{{ insumo.cantidad_total }}</span>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                                <ng-template #noInsumos>
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted">
+                                            No hay insumos generales disponibles
+                                        </td>
+                                    </tr>
+                                </ng-template>
+
+                                <!-- Sección de Subproyectos -->
+                                <tr class="bg-light-primary">
+                                    <td colspan="4" class="fw-bold">
+                                        Insumos por Subproyecto
+                                    </td>
+                                </tr>
+                                <ng-container *ngFor="let subproyecto of PROFORMA.subproyectos">
+                                    <tr class="bg-light-primary">
+                                        <td colspan="4" class="fw-bold">
+                                            {{ subproyecto.nombre }}
+                                            <span class="badge badge-light-primary ms-2">{{ subproyecto.estado }}</span>
+                                        </td>
+                                    </tr>
+                                    <ng-container *ngFor="let producto of subproyecto.productos">
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex justify-content-start flex-column">
+                                                    <span class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">{{ producto.product.title }}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="text-muted fw-semibold text-muted d-block fs-7">{{ producto.product.description || 'Sin descripción' }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="text-muted fw-semibold text-muted d-block fs-7">{{ producto.unit.name }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="text-muted fw-semibold text-muted d-block fs-7">{{ producto.cantidad }}</span>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </ng-container>
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <strong>Sede de ORIGEN:</strong> {{ PROFORMA.sucursale.name }}
+                                            </div>
+                                            <div>
+                                                <strong>Sede de ENTREGA:</strong> {{ PROFORMA.proforma_deliverie.sucursal_deliverie.name }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                        <!--end::Table-->
+                    </div>
+                </div>
+            </div>
+
+            <!-- PDF Section -->
+            <div class="row mt-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Documentos PDF</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Upload PDF -->
+                        <div class="mb-5">
+                            <div class="d-flex align-items-center">
+                                <input type="file" class="form-control me-3" accept=".pdf" (change)="onFileSelected($event)">
+                                <button type="button" class="btn btn-primary" (click)="uploadPdf()" [disabled]="!selectedFile">
+                                    Subir PDF
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- PDF List -->
+                        <div class="table-responsive">
+                            <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                                <thead>
+                                    <tr class="fw-bold text-muted">
+                                        <th class="min-w-150px">Nombre</th>
+                                        <th class="min-w-100px">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let pdf of pdfs">
+                                        <td>{{ pdf.name }}</td>
+                                        <td>
+                                            <a [href]="pdf.url" target="_blank" class="btn btn-sm btn-light-primary me-2">
+                                                Ver
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-light-danger" (click)="deletePdf(pdf.id)">
+                                                Eliminar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--begin::Actions-->
+            <div class="text-center pt-15">
+                <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
+            </div>
+            <!--end::Actions-->
+        </form>
+        <!--end::Form-->
+    </div>
+    <!--end::Modal body-->
+</div>
+<!--end::Modal content CREATE-->

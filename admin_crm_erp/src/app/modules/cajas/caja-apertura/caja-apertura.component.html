@@ -1,0 +1,31 @@
+<!--begin::Modal content CREATE-->
+<div class="modal-content">
+    <!--begin::Modal header-->
+    <div class="modal-header">
+        <h4 class="modal-title">Apertura de Caja</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <!--end::Modal header-->
+    <!--begin::Modal body-->
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="amount_initial">Monto Inicial</label>
+                    <input type="number" class="form-control" id="amount_initial" [(ngModel)]="amount_initial">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Modal body-->
+    <!--begin::Modal footer-->
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.dismiss()">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="apertura()" [disabled]="isLoading">
+            <span *ngIf="!isLoading">Abrir Caja</span>
+            <span *ngIf="isLoading">Procesando...</span>
+        </button>
+    </div>
+    <!--end::Modal footer-->
+</div>
+<!--end::Modal content CREATE-->

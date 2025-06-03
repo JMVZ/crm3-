@@ -1,0 +1,54 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./assets/sass/style.scss";
+// Replace above style with this css file to enable RTL styles
+// @import "./assets/css/style.rtl";
+@import './assets/sass/plugins.scss';
+// @import "./assets/css/style.rtl.css";
+@import "./assets/sass/style.angular.scss";
+
+// Keenicons - High quality and pixel perfect font icons available in 3 styles, duotone, outline and solid for Metronic elements
+@import "./assets/plugins/keenicons/duotone/style.css";
+@import "./assets/plugins/keenicons/outline/style.css";
+@import "./assets/plugins/keenicons/solid/style.css";
+
+// regular style toast
+@import 'ngx-toastr/toastr';
+
+// bootstrap style toast
+// or import a bootstrap 4 alert styled design (SASS ONLY)
+// should be after your bootstrap imports, it uses bs4 variables, mixins, functions
+@import 'ngx-toastr/toastr-bs5-alert';
+
+.toast-success {
+    background-color: #d4ffd4 !important;
+}
+.toast-error {
+    background-color: #FFEEF3 !important;
+}
+.toast-info {
+    background-color: #b6e4ff !important;
+}
+.toast-warning {
+    background-color: #ffe1b6 !important;
+}
+
+body.modal-light-force-global .modal-content,
+body.modal-light-force-global .modal-header,
+body.modal-light-force-global .modal-body,
+body.modal-light-force-global .modal-footer,
+body.modal-light-force-global .table,
+body.modal-light-force-global .form-control,
+body.modal-light-force-global .btn {
+  background: #fff !important;
+  color: #222 !important;
+  border-color: #dee2e6 !important;
+}
+
+.blink-warning {
+  animation: blink-red 1s steps(2, start) infinite;
+}
+@keyframes blink-red {
+  to {
+    visibility: hidden;
+  }
+}

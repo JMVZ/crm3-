@@ -1,0 +1,68 @@
+<!--begin::Modal content CREATE-->
+<div class="modal-content">
+    <!--begin::Modal header-->
+    <div class="modal-header" id="kt_modal_add_user_header">
+        <!--begin::Modal title-->
+        <h2 class="fw-bolder">Products ({{ products.length }})</h2>
+        
+        <!--end::Modal title-->
+        <!--begin::Close-->
+        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close" (click)="modal.dismiss()">
+            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+            <span class="svg-icon svg-icon-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+                </svg>
+            </span>
+            <!--end::Svg Icon-->
+        </div>
+        <!--end::Close-->
+    </div>
+    <!--end::Modal header-->
+    <!--begin::Modal body-->
+    <div class="modal-body scroll-y mx-5 my-7">
+        <!--begin::Table-->
+        <div class="table-responsive">
+            <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                <!--begin::Table head-->
+                <thead>
+                    <tr class="fw-bold text-muted">
+                        <th class="min-w-200px">Producto</th>
+                        <th class="min-w-200px">Descripción</th>
+                        <th class="min-w-100px text-end">Acciones</th>
+                    </tr>
+                </thead>
+                <!--end::Table head-->
+                <!--begin::Table body-->
+                <tbody>
+                    <ng-container *ngFor="let PRODUCT of products">
+                        <tr>
+                            <td>
+                                <div class="d-flex justify-content-start flex-column">
+                                    <a href="#" class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">{{ PRODUCT.title }}</a>
+                                    <span class="text-muted fw-semibold text-muted d-block fs-7">Peso: {{ PRODUCT.weight }}</span>
+                                    <span class="badge badge-light-primary" *ngIf="PRODUCT.state_stock == 1">Disponible</span>
+                                    <span class="badge badge-light-warning" *ngIf="PRODUCT.state_stock == 2">Por agotar</span>
+                                    <span class="badge badge-light-danger" *ngIf="PRODUCT.state_stock == 3">Agotado</span>
+                                </div>
+                            </td>
+                            <td>
+                                {{ PRODUCT.description }}
+                            </td>
+                            <td class="text-end">
+                                <button type="button" class="btn btn-light-primary btn-sm" (click)="selectProduct(PRODUCT)">
+                                    Seleccionar
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+                <!--end::Table body-->
+            </table>
+        </div>
+        <!--end::Table-->
+    </div>
+    <!--end::Modal body-->
+</div>
+<!--end::Modal content CREATE-->

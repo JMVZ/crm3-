@@ -1,0 +1,106 @@
+<!--begin::Modal content CREATE-->
+<div class="modal-content">
+    <!--begin::Modal header-->
+    <div class="modal-header" id="kt_modal_add_user_header">
+        <!--begin::Modal title-->
+        <h2 class="fw-bolder">Contrato #({{ CONTRACT.id }})</h2>
+        <!--end::Modal title-->
+        <!--begin::Close-->
+        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close" (click)="modal.dismiss()">
+            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+            <span class="svg-icon svg-icon-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+                </svg>
+            </span>
+            <!--end::Svg Icon-->
+        </div>
+        <!--end::Close-->
+    </div>
+    <!--end::Modal header-->
+    <!--begin::Modal body-->
+    <div class="modal-body scroll-y mx-5">
+        <!--begin::Form-->
+        <form id="kt_modal_add_user_form" class="form" action="#">
+            
+            <div class="row">
+                <div class="col-6">
+                    <select
+                        class="form-control"
+                        name="warehouse_id"
+                        [(ngModel)]="warehouse_id"
+                        placeholder="Selec. Almacen"
+                    >
+                    <option value="">Ninguno</option>
+                        <ng-container *ngFor="let warehouse of warehouses">
+                            <option [value]="warehouse.id">{{ warehouse.name }}</option>
+                        </ng-container>
+                    </select>
+                    <div class="text-muted fs-7">Almacen de atención.</div>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary" (click)="processEntrega()">ENTREGAR PRODUCTOS</button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                    <thead>
+                        <tr class="fw-bold text-muted">
+                            <th class="w-25px">
+                                <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                    <!-- Eliminar checkbox de selección global -->
+                                </div>
+                            </th>
+                            <th class="min-w-150px">Producto</th>
+                            <th class="min-w-140px">Cantidad</th>
+                            <th class="min-w-120px">Unidad</th>
+                            <th class="min-w-120px">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let detail of CONTRACT.details">
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox"
+                                            [checked]="isDetailSelected(detail.id)"
+                                            [disabled]="false"
+                                            (change)="toggleDetailSelection(detail)"
+                                        />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="d-flex justify-content-start flex-column">
+                                            <span class="text-dark fw-bold text-hover-primary mb-1 fs-6">
+                                                {{ detail.product.title }}
+                                                <!-- Eliminar insignia Principal -->
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ detail.quantity }}</td>
+                                <td>{{ detail.unit.name }}</td>
+                                <td>
+                                    <span class="badge badge-light-success" *ngIf="detail.date_entrega">Entregado</span>
+                                    <span class="badge badge-light-warning" *ngIf="!detail.date_entrega">Pendiente</span>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--begin::Actions-->
+            <div class="text-center pt-15">
+                <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
+            </div>
+            <!--end::Actions-->
+        </form>
+        <!--end::Form-->
+    </div>
+    <!--end::Modal body-->
+</div>
+<!--end::Modal content CREATE-->
